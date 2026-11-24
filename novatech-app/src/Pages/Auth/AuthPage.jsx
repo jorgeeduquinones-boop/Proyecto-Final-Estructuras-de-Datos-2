@@ -62,8 +62,8 @@ export function AuthPage() {
 
           <p className={styles.muted}>
             {mode === 'login'
-              ? 'Usa un correo con la palabra admin para acceder al panel de despacho.'
-              : 'Registra tu perfil y selecciona tu nodo de entrega en la red.'}
+              ? 'Ingresa con tu correo registrado para gestionar tus pedidos.'
+              : 'Registra tu perfil y selecciona tu zona de entrega.'}
           </p>
 
           {error && <p className={styles.errorMsg}>{error}</p>}
@@ -104,14 +104,14 @@ export function AuthPage() {
 
             {mode === 'register' && (
               <>
-                <label>Nodo de Destino (Grafo)</label>
+                <label>Zona de Entrega</label>
                 <select
                   value={deliveryNode}
                   onChange={(e) => setDeliveryNode(e.target.value)}
                 >
-                  <option value="Nodo Sur">Nodo Sur</option>
-                  <option value="Nodo Norte">Nodo Norte</option>
-                  <option value="Nodo Centro">Nodo Centro</option>
+                  <option value="Nodo Sur">Zona Sur</option>
+                  <option value="Nodo Norte">Zona Norte</option>
+                  <option value="Nodo Centro">Zona Centro</option>
                 </select>
               </>
             )}

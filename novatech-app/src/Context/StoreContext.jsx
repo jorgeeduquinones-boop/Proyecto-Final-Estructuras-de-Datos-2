@@ -55,7 +55,7 @@ export function StoreProvider({ children }) {
   const [recentViews, setRecentViews] = useState(['MacBook Pro 14 M3', 'Sony WH-1000XM5']);
   const [orders, setOrders] = useState([]);
   const [messages, setMessages] = useState([
-    { id: 'init-1', sender: 'Operador', content: 'Canal de soporte en tiempo real conectado.' }
+    { id: 'init-1', sender: 'Operador', content: 'Canal de soporte en linea conectado.' }
   ]);
 
   const recentStackRef = useRef(new Stack(5));
@@ -68,7 +68,7 @@ export function StoreProvider({ children }) {
   }, []);
 
   const categoryTree = useMemo(() => {
-    const tree = new NAryTree('all', 'Raiz / Todo');
+    const tree = new NAryTree('all', 'Todo el catalogo');
     tree.insert('all', 'laptops', 'Laptops');
     tree.insert('laptops', 'ultrabooks', 'Ultrabooks');
     tree.insert('laptops', 'workstations', 'Workstations');
@@ -168,7 +168,10 @@ export function StoreProvider({ children }) {
     const messagesChannel = supabase
       .channel('messages-realtime')
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, (payload) => {
-        setMessages((prev) => [...prev, payload.new]);
+        setMessages((prev) => {
+          if (prev.some((m) => m.id === payload.new.id)) return prev;
+          return [...prev, payload.new];
+        });
       })
       .subscribe();
 
@@ -244,7 +247,19 @@ export function StoreProvider({ children }) {
 
   const sendRealtimeMessage = async (sender, content) => {
     if (!content.trim()) return;
-    await supabase.from('messages').insert([{ sender, content: content.trim() }]);
+    const { data, error } = await supabase
+      .from('messages')
+      .insert([{ sender, content: content.trim() }])
+      .select();
+
+    if (error) throw error;
+
+    if (data && data[0]) {
+      setMessages((prev) => {
+        if (prev.some((m) => m.id === data[0].id)) return prev;
+        return [...prev, data[0]];
+      });
+    }
   };
 
   return (

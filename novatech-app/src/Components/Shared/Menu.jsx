@@ -31,8 +31,8 @@ export function Menu({ children }) {
               `${styles.navLink} ${isActive ? styles.active : ''}`
             }
           >
-            <span>Catalogo Publico</span>
-            <small>Arbol / Trie / Pila</small>
+            <span>Catalogo</span>
+            <small>Equipos y perifericos</small>
           </NavLink>
 
           {!user && (
@@ -43,7 +43,7 @@ export function Menu({ children }) {
               }
             >
               <span>Acceso y Cuenta</span>
-              <small>Supabase Auth</small>
+              <small>Ingresar o registrarse</small>
             </NavLink>
           )}
 
@@ -54,8 +54,8 @@ export function Menu({ children }) {
                 `${styles.navLink} ${isActive ? styles.active : ''}`
               }
             >
-              <span>Carrito y Ruta ({cart.length})</span>
-              <small>Pila / Grafo / Realtime</small>
+              <span>Carrito y Envio ({cart.length})</span>
+              <small>Orden y seguimiento</small>
             </NavLink>
           )}
 
@@ -66,8 +66,8 @@ export function Menu({ children }) {
                 `${styles.navLink} ${isActive ? styles.active : ''}`
               }
             >
-              <span>Despacho Admin</span>
-              <small>Cola FIFO</small>
+              <span>Panel de Despacho</span>
+              <small>Gestion de pedidos</small>
             </NavLink>
           )}
         </nav>
@@ -90,12 +90,12 @@ export function Menu({ children }) {
           <input
             type="text"
             className={styles.searchInput}
-            placeholder="Buscar hardware por prefijo (Trie)..."
+            placeholder="Buscar productos, marcas o modelos..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
           <span className={styles.goldTag}>
-            Top-K: MacBook Pro (95) · Keychron Q1 (92)
+            Destacados: MacBook Pro · Keychron Q1
           </span>
         </header>
 

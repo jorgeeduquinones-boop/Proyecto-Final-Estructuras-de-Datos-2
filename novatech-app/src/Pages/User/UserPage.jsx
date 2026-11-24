@@ -4,6 +4,13 @@ import { useAuth } from '../../Hooks/useAuth';
 import { useStore } from '../../Hooks/useStore';
 import styles from './UserPage.module.scss';
 
+const ZONE_LABELS = {
+  'Bodega Central': 'Bodega Central',
+  'Nodo Sur': 'Zona Sur',
+  'Nodo Norte': 'Zona Norte',
+  'Nodo Centro': 'Zona Centro'
+};
+
 export function UserPage() {
   const { user } = useAuth();
   const {
@@ -20,23 +27,34 @@ export function UserPage() {
   const [destination, setDestination] = useState(defaultNode);
   const [chatText, setChatText] = useState('');
   const [orderNotice, setOrderNotice] = useState('');
+  const [chatNotice, setChatNotice] = useState('');
 
   const routeInfo = calculateRoute(destination);
 
   const handleCheckout = async () => {
-    const customerName = user?.user_metadata?.full_name || user?.email;
-    const code = await submitOrder(customerName, destination);
-    if (code) {
-      setOrderNotice(`Orden ${code} enviada a la cola de despacho.`);
+    setOrderNotice('');
+    try {
+      const customerName = user?.user_metadata?.full_name || user?.email;
+      const code = await submitOrder(customerName, destination);
+      if (code) {
+        setOrderNotice(`Orden ${code} confirmada y enviada a despacho.`);
+      }
+    } catch (err) {
+      setOrderNotice(`Error al confirmar: ${err.message}`);
     }
   };
 
   const handleSendChat = async (e) => {
     e.preventDefault();
     if (!chatText.trim()) return;
-    const sender = user?.user_metadata?.full_name || 'Cliente';
-    await sendRealtimeMessage(sender, chatText);
-    setChatText('');
+    setChatNotice('');
+    try {
+      const sender = user?.user_metadata?.full_name || 'Cliente';
+      await sendRealtimeMessage(sender, chatText);
+      setChatText('');
+    } catch (err) {
+      setChatNotice(`Error al enviar: ${err.message}`);
+    }
   };
 
   return (
@@ -46,7 +64,7 @@ export function UserPage() {
           <div className={styles.panelHead}>
             <h3>Orden Actual</h3>
             <button onClick={undoLastCartItem} className={styles.ghostBtn}>
-              Deshacer Ultimo (Pop)
+              Quitar Ultimo
             </button>
           </div>
 
@@ -73,7 +91,7 @@ export function UserPage() {
             disabled={cart.length === 0}
             className={`${styles.primaryBtn} ${styles.full}`}
           >
-            Confirmar Compra (Enqueue)
+            Confirmar Compra
           </button>
 
           {orderNotice && <p className={styles.feedback}>{orderNotice}</p>}
@@ -82,7 +100,7 @@ export function UserPage() {
         <div className={styles.rightStack}>
           <div className={styles.card}>
             <div className={styles.panelHead}>
-              <h3>Red de Entrega (Grafo Ponderado)</h3>
+              <h3>Ruta de Entrega</h3>
               <span className={styles.goldOutline}>
                 {routeInfo.distanceKm} km · {routeInfo.estimatedMinutes} min
               </span>
@@ -93,9 +111,9 @@ export function UserPage() {
               onChange={(e) => setDestination(e.target.value)}
               className={styles.nodeSelect}
             >
-              <option value="Nodo Sur">Destino: Nodo Sur</option>
-              <option value="Nodo Norte">Destino: Nodo Norte</option>
-              <option value="Nodo Centro">Destino: Nodo Centro</option>
+              <option value="Nodo Sur">Destino: Zona Sur</option>
+              <option value="Nodo Norte">Destino: Zona Norte</option>
+              <option value="Nodo Centro">Destino: Zona Centro</option>
             </select>
 
             <div className={styles.routeTrack}>
@@ -109,7 +127,7 @@ export function UserPage() {
                       idx === routeInfo.path.length - 1 ? styles.target : ''
                     }`}
                   >
-                    {vertex}
+                    {ZONE_LABELS[vertex] || vertex}
                   </span>
                   {idx < routeInfo.path.length - 1 && (
                     <span className={styles.arc}>--&gt;</span>
@@ -121,7 +139,7 @@ export function UserPage() {
 
           <div className={styles.card}>
             <div className={styles.panelHead}>
-              <h3>Canal en Vivo (Supabase Realtime)</h3>
+              <h3>Soporte en Vivo</h3>
               <span className={styles.liveBadge}>En linea</span>
             </div>
 
@@ -144,6 +162,8 @@ export function UserPage() {
                 Enviar
               </button>
             </form>
+
+            {chatNotice && <p className={styles.feedback}>{chatNotice}</p>}
           </div>
         </div>
       </div>

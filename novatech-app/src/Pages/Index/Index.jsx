@@ -15,7 +15,7 @@ export function Index() {
   return (
     <Menu>
       <div className={styles.treeBar}>
-        <span className={styles.label}>Categorias (Arbol N-ario):</span>
+        <span className={styles.label}>Categorias:</span>
         <div className={styles.pills}>
           {categoriesList.map((cat) => (
             <button
@@ -44,11 +44,11 @@ export function Index() {
 
         <aside className={styles.stackPanel}>
           <div className={styles.panelHead}>
-            <h3>Historial (Pila LIFO)</h3>
-            <span className={styles.goldBadge}>Top</span>
+            <h3>Vistos Recientemente</h3>
+            <span className={styles.goldBadge}>Reciente</span>
           </div>
           <p className={styles.muted}>
-            Ultimo hardware inspeccionado aparece primero.
+            Ultimos equipos consultados en tu sesion.
           </p>
           <ul className={styles.stackList}>
             {recentViews.map((name, idx) => (
