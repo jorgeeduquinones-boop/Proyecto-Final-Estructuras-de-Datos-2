@@ -1,0 +1,180 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+
+  @media (max-width: 820px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rightStack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.panelHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.ghostBtn {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  border-radius: 7px;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--teal);
+    color: var(--teal-hover);
+  }
+}
+
+.primaryBtn {
+  background: var(--teal);
+  color: var(--bg);
+  border: 1px solid var(--teal-hover);
+  padding: 9px 14px;
+  border-radius: 7px;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--teal-hover);
+  }
+}
+
+.full {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.muted {
+  color: var(--lavender-gray);
+  font-size: 0.85rem;
+}
+
+.orderItems {
+  list-style: none;
+  margin: 12px 0;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.92rem;
+  }
+}
+
+.summaryBar {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.05rem;
+  padding: 10px 0;
+  color: var(--teal-hover);
+}
+
+.goldOutline {
+  font-size: 0.74rem;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 2px 8px;
+  border-radius: 99px;
+}
+
+.nodeSelect {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.routeTrack {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  background: var(--bg);
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.vertex {
+  padding: 6px 9px;
+  border-radius: 5px;
+  border: 1px solid var(--teal);
+  color: var(--white);
+}
+
+.target {
+  background: var(--teal);
+  color: var(--bg);
+  font-weight: 700;
+}
+
+.arc {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.liveBadge {
+  font-size: 0.75rem;
+  color: var(--teal-hover);
+}
+
+.chatFeed {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 10px;
+  height: 115px;
+  overflow-y: auto;
+  font-size: 0.84rem;
+  margin-bottom: 8px;
+
+  p {
+    margin-bottom: 6px;
+  }
+}
+
+.chatControls {
+  display: flex;
+  gap: 8px;
+
+  input {
+    flex: 1;
+    padding: 8px 10px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--white);
+  }
+}
+
+.feedback {
+  margin-top: 10px;
+  color: var(--gold);
+  font-size: 0.85rem;
+}

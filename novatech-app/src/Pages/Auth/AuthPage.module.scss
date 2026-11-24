@@ -1,0 +1,98 @@
+.center {
+  max-width: 440px;
+  margin: 12px auto;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 22px;
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 16px;
+  background: var(--bg);
+  padding: 4px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.tabBtn {
+  background: transparent;
+  color: var(--lavender-gray);
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tabActive {
+  background: var(--teal);
+  color: var(--bg);
+}
+
+.muted {
+  color: var(--lavender-gray);
+  font-size: 0.85rem;
+  margin-bottom: 14px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 9px 12px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--white);
+    margin-top: 4px;
+    margin-bottom: 12px;
+
+    &:focus {
+      outline: none;
+      border-color: var(--teal);
+    }
+  }
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 10px;
+  border-radius: 7px;
+  background: var(--teal);
+  color: var(--bg);
+  border: 1px solid var(--teal-hover);
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 6px;
+
+  &:hover {
+    background: var(--teal-hover);
+  }
+}
+
+.errorMsg {
+  color: var(--danger);
+  font-size: 0.84rem;
+  margin-bottom: 10px;
+}
+
+.infoMsg {
+  color: var(--teal-hover);
+  font-size: 0.84rem;
+  margin-bottom: 10px;
+}
